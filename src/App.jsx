@@ -3,7 +3,7 @@ import './App.css'
 import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css';
 import { MainContainer, ChatContainer, MessageList, Message, MessageInput, TypingIndicator } from '@chatscope/chat-ui-kit-react';
 
-const API_KEY = "";
+const API_KEY = "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";
 // "Explain things like you would to a 10 year old learning how to code."
 const systemMessage = { //  Explain things like you're talking to a software professional with 5 years of experience.
   "role": "system", "content": "Explain things like you're talking to a software professional with 2 years of experience."
@@ -74,7 +74,7 @@ function App() {
     }).then((data) => {
       return data.json();
     }).then((data) => {
-      console.log(data);
+      handleSpeakClick(data.choices[0].message.content);
       setMessages([...chatMessages, {
         message: data.choices[0].message.content,
         sender: "ChatGPT"
@@ -82,6 +82,17 @@ function App() {
       setIsTyping(false);
     });
   }
+
+  const handleSpeakClick = (message) => {
+    const speech = new SpeechSynthesisUtterance();
+    speech.lang = 'en-EN';
+    speech.text = message;
+    speech.volume = 1;
+    speech.rate = 1;
+    speech.pitch = 1;
+
+    window.speechSynthesis.speak(speech);
+  };
 
   return (
     <div className="App">
@@ -93,7 +104,6 @@ function App() {
               typingIndicator={isTyping ? <TypingIndicator content="ChatGPT is typing" /> : null}
             >
               {messages.map((message, i) => {
-                console.log(message)
                 return <Message key={i} model={message} />
               })}
             </MessageList>
