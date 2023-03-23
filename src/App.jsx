@@ -3,7 +3,7 @@ import './App.css'
 import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css';
 import { MainContainer, ChatContainer, MessageList, Message, MessageInput, TypingIndicator } from '@chatscope/chat-ui-kit-react';
 
-const API_KEY = "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";
+const API_KEY = "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";
 // "Explain things like you would to a 10 year old learning how to code."
 const systemMessage = { //  Explain things like you're talking to a software professional with 5 years of experience.
   "role": "system", "content": "Explain things like you're talking to a software professional with 2 years of experience."
@@ -74,6 +74,7 @@ function App() {
     }).then((data) => {
       return data.json();
     }).then((data) => {
+      console.log(data)
       handleSpeakClick(data.choices[0].message.content);
       setMessages([...chatMessages, {
         message: data.choices[0].message.content,
