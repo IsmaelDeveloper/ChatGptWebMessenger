@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "REACT_APP_API_KEY=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 vite build",
     "preview": "vite preview"
   },
   "dependencies": {
