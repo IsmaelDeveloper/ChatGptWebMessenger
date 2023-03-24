@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import './App.css'
 import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css';
-import { MainContainer, ChatContainer, MessageList, Message, MessageInput, TypingIndicator } from '@chatscope/chat-ui-kit-react';
-
+import { MainContainer, ChatContainer, MessageList, Message, MessageInput, TypingIndicator, VideoCallButton, VoiceCallButton } from '@chatscope/chat-ui-kit-react';
+import styles from '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css';
 const API_KEY = "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";
 // "Explain things like you would to a 10 year old learning how to code."
 const systemMessage = { //  Explain things like you're talking to a software professional with 5 years of experience.
@@ -143,6 +143,20 @@ function App() {
   </div>
   };
   
+  function speechToText() {
+    const recognition = new window.webkitSpeechRecognition();
+  
+    recognition.onresult = (event) => {
+      const text = event.results[0][0].transcript;
+      console.log(text);
+      var contentEditor = document.querySelector('.cs-message-input__content-editor');
+      contentEditor.textContent = text;
+      
+    };
+  
+    recognition.start();
+  }
+  
   
   return (
     <div className="App">
@@ -157,11 +171,16 @@ function App() {
               {messages.map((message, i) => {
                 return <Message key={i} model={message} />
               })}
+
             </MessageList>
-            <MessageInput placeholder="Type message here" onSend={handleSend} />        
+            <MessageInput attachButton={false} placeholder="Type message here" onSend={handleSend} />        
           </ChatContainer>
+              <div style={{ position: "absolute", bottom: "50px ", right: "0",  zIndex: "1"}}>
+              <VoiceCallButton onClick={speechToText} border />
+              </div>
         </MainContainer>
       </div>
+      
     </div>
   )
 }
