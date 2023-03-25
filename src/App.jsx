@@ -3,7 +3,7 @@ import './App.css'
 import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css';
 import { MainContainer, ChatContainer, MessageList, Message, MessageInput, TypingIndicator, VideoCallButton, VoiceCallButton } from '@chatscope/chat-ui-kit-react';
 import styles from '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css';
-const API_KEY = "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";
+const API_KEY = "";
 // "Explain things like you would to a 10 year old learning how to code."
 const systemMessage = { //  Explain things like you're talking to a software professional with 5 years of experience.
   "role": "system", "content": "Explain things like you're talking to a software professional with 2 years of experience."
@@ -12,7 +12,7 @@ const systemMessage = { //  Explain things like you're talking to a software pro
 function App() {
   const [messages, setMessages] = useState([
     {
-      message: "Hello, I'm ChatGPT! Ask me anything!",
+      message: "안녕하세요, 저는 ChatGPT입니다! 무엇이든 물어보세요!",
       sentTime: "just now",
       sender: "ChatGPT"
     }
@@ -88,7 +88,7 @@ function App() {
   const handleSpeakClick = (message) => {
     setIsAnimating(true);
     const speech = new SpeechSynthesisUtterance();
-    speech.lang = 'en-EN';
+    speech.lang = 'ko-KR';
     speech.text = message;
     speech.volume = 1;
     speech.rate = 1;
@@ -145,7 +145,8 @@ function App() {
   
   function speechToText() {
     const recognition = new window.webkitSpeechRecognition();
-  
+      // Set language to English, French, and Korean
+    recognition.lang = 'ko-KR';
     recognition.onresult = (event) => {
       const text = event.results[0][0].transcript;
       console.log(text);
